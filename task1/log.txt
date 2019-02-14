@@ -1,0 +1,11 @@
+commit c638c6cf3eb45346964228fc401b5abc017323cb (HEAD -> master)
+Author: Pavel Musorskiy <pablo.junior@tut.by>
+Date:   Thu Feb 14 18:36:54 2019 +0300
+
+    add task1/status.txt
+
+commit 5a248fd162af28c10b6323e306ebbf9737286a8d
+Author: Pavel Musorskiy <pablo.junior@tut.by>
+Date:   Thu Feb 14 18:35:51 2019 +0300
+
+    add .gitignore
