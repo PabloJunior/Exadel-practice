@@ -1,0 +1,341 @@
+header{  
+    background:  white;
+    height: 12%;
+    width: auto;
+}
+
+body{
+    font-family: Aladin,sans-serif;
+    background: #fafafa;
+    padding: 0;
+    margin: 0;
+}
+
+section{
+    background: #fafafa;
+}
+
+
+footer{
+    height: 280px;
+    width: auto;
+    background: white;
+}
+
+.p {
+    margin-top: 10px;
+    margin-left: 300px;
+    margin-right: 2%;
+    float: right;
+}
+
+.container {
+    height: 160px;
+}
+
+.logo
+{
+    max-width:100%;
+    height:auto;
+    float: left;
+    margin-top:1%;
+    margin-bottom:1%;
+    margin-left:2%;
+}
+
+.add{    
+    max-width:100%;
+    height:auto;    
+    margin-left:120px;
+    margin-top:20px;
+}
+
+.nick{
+    float: right;
+    margin-right: 40px;
+    margin-top: 20px;
+}
+
+.profile
+{
+    max-width:100%;
+    height:auto;
+    margin-top:20px;
+    margin-left: 20px;
+    margin-right: auto;
+}
+
+.Exit
+{
+    max-width:100%;
+    height:auto;
+    margin-top:20px;
+    margin-right: 0;
+    float: right;
+}
+
+.user{
+    font-family: Aladin sans-serif;
+    margin-left: 20px;
+    margin-top: 40px;
+    font-size: 35px;
+    margin-right: 40px;
+    float: right;
+}
+ 
+.search
+{
+    border: 2px solid gray;
+    border-radius: 3%;  
+    width: 460px;
+    height: 400px;
+    float: left;
+    margin-top: 120px;
+    margin-left: 75px;
+    list-style-type: none;
+}
+
+.toolbar li{
+    margin: 10px 0px 30px 40px;
+    list-style-type: none;
+}
+
+.hashtags
+{
+    font-family: Aladin sans-serif;
+    color: blue;
+    font-size: 25px;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: 3%;
+    margin-bottom: 20px;
+    float: left;
+}
+
+.searchbutton {
+    max-width:100%;
+    height:auto;
+    color: blue;
+    background-color: lime;
+    font-size: 30px;
+    height: 70px;
+    margin-left: 90px;
+}
+
+.filters{
+    margin-top:20px;
+    margin-left:15px;
+    margin-bottom:20px;
+    font-size: 50px;
+    font-family: Aladin sans-serif;   
+}
+
+.post{
+    border: 2px solid gray;
+    background: white;
+    margin-top: 90px;
+    width: 850px;
+    height: 920px;
+    margin-left: 40%;
+    margin-bottom: 90px;   
+}
+
+
+.headPost
+{
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.userphoto
+{
+    max-width:100%;
+    height:auto;
+    margin-top:3px;  
+    margin-left: 1%;
+    margin-right: 3px;
+    float: left;
+}
+
+.username
+{
+    font-family: Aladin sans-serif;
+    margin-top:12px;
+    float: left;
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.datapost
+{
+    font-family: Aladin sans-serif;
+    margin-top:15px;
+    font-size: 30px;
+    float: right;
+    margin-right: 7% ;
+}
+
+
+.photo
+{
+    border: 5px solid gray;
+    height: 600px;
+    width:800px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+
+.elements {
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.like
+{
+    max-width:100%;
+    height:auto;
+    margin-top: 5px;
+    margin-left: 2%;
+    float: left;
+}
+
+.setting
+{
+    max-width:100%;
+    height:auto;
+    margin-top: 5px;
+    margin-left: 2%;
+    float: left;
+}
+
+.delete
+{
+    max-width:100%;
+    height:auto;
+    float: right;
+    margin-top: 5px;
+    margin-right: 3%;
+}
+
+
+.comment
+{
+    resize: none;
+    width: 795px;
+    background-color: whitesmoke;
+    font-size: 25px;
+    margin-left: 25px;
+    margin-top: 0px;
+}
+
+.load
+{
+    max-width:100%;
+    height:auto;
+    margin: 5px 5% 30px 60%;
+}
+
+.info
+{
+    float: left;
+    margin-left: 180px;
+    margin-top:25px;
+    font-size: 30px;
+    color: black;
+    list-style-type: none;
+}
+
+.information
+{
+    float: right;
+    margin-right: 50px;
+    font-size: 35px;
+    color: black;
+    list-style-type: none;
+}
+
+.information li
+{
+    margin-top: 25px;
+    margin-right: 100px;
+    margin-bottom:  15px;
+    margin-left:  10px;
+}
+
+ul #left
+{
+    margin-left:5px;   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
