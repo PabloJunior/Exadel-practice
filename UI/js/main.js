@@ -7,8 +7,8 @@ var modul = (function () {
             createdAt: new Date('2019-03-08T21:30:00'),
             author: 'Mask',
             photoLink: 'http://photoportal.by/photos/1',
-            hashTags: ["#space","#falcon"  ],
-            likes: ["Бобр-Добр",'SCP 096']
+            hashTags: ["#space", "#falcon"],
+            likes: ["Бобр-Добр", 'SCP 096']
         },
         {
             id: '2',
@@ -52,7 +52,7 @@ var modul = (function () {
             createdAt: new Date('2019-03-08T21:45:13'),
             author: 'Кнаклз из Уганды',
             photoLink: 'http://photoportal.by/photos/6',
-            hashTags: ["#sonicX","memes"],
+            hashTags: ["#sonicX", "memes"],
             likes: ["?"]
         },
         {
@@ -79,7 +79,7 @@ var modul = (function () {
             createdAt: new Date('2019-03-08T21:48:23'),
             author: 'TaksedaMask',
             photoLink: 'http://photoportal.by/photos/9',
-            hashTags: ["SailorMoon","anime"],
+            hashTags: ["SailorMoon", "anime"],
             likes: ['Кнаклз из Уганды']
         },
         {
@@ -115,7 +115,7 @@ var modul = (function () {
             createdAt: new Date('2019-03-08T21:52:24'),
             author: 'Пикачу',
             photoLink: 'http://photoportal.by/photos/13',
-            hashTags: ["#pokemon","pikachu"],
+            hashTags: ["#pokemon", "pikachu"],
             likes: []
         },
         {
@@ -167,7 +167,7 @@ var modul = (function () {
             id: '19',
             description: '?',
             createdAt: new Date('2019-03-08T21:58:11'),
-            author:'?',
+            author: '?',
             photoLink: 'http://photoportal.by/photos/19',
             hashTags: ['#?'],
             likes: []
@@ -268,22 +268,30 @@ var modul = (function () {
 
 
         validatePhotoPost: function (photoPost) {
-            if (!photoPost)
+            if (!photoPost) {
                 return false;
-            if (!('likes' in photoPost && 'author' in photoPost && 'photoLink' in photoPost && 'createdAt' in photoPost && 'id' in photoPost && 'description' in photoPost && 'hashTags' in photoPost))
+            }
+            if (!('likes' in photoPost && 'author' in photoPost && 'photoLink' in photoPost && 'createdAt' in photoPost && 'id' in photoPost && 'description' in photoPost && 'hashTags' in photoPost)) {
                 return false;
-            if (photoPost.id === '' || typeof photoPost.id !== 'string')
+            }
+            if (!photoPost.id) {
                 return false;
-            if (photoPost.description === '' || typeof photoPost.description !== 'string' || photoPost.description.length > 200)
+            }
+            if (!photoPost || photoPost.description.length > 200) {
                 return false;
-            if (!(photoPost.createdAt instanceof Date) || photoPost.createdAt.toString() === "Invalid Date")
+            }
+            if (!(photoPost.createdAt instanceof Date) || photoPost.createdAt.toString() === "Invalid Date") {
                 return false;
-            if (photoPost.author === '' || typeof photoPost.author !== 'string')
+            }
+            if (!photoPost.author) {
                 return false;
-            if (photoPost.photoLink === '' || typeof photoPost.photoLink !== 'string')
+            }
+            if (!photoPost.photoLink) {
                 return false;
-            if (photoPost.likes === null)
+            }
+            if (photoPost.likes === null) {
                 return false;
+            }
 
             return true;
         },
@@ -297,7 +305,7 @@ var modul = (function () {
                 }
             }
             if (this.validatePhotoPost(photoPost)) {
-                photoPost.id = String(photoPosts.length + 1);
+                photoPost.id = ""+(photoPosts.length + 1);
                 photoPosts.push(photoPost);
                 return true;
             }
@@ -313,30 +321,25 @@ var modul = (function () {
             }
 
             if (typeof (id) === "string") {
-                var num = parseInt(id);
-                if (num > 0 && num <= photoPosts.length) {
-                    var obj = photoPosts[num - 1];
-                    if ('hashTags' in photoPost) {
-                        obj.hashTags = photoPost.hashTags;
-                    }
-                    if ('photoLink' in photoPost) {
-                        obj.photoLink = photoPost.photoLink;
-                    }
-                    if ('description' in photoPost) {
-                        obj.description = photoPost.description;
-                    }
-                    if (this.validatePhotoPost(obj)) {
-                        photoPosts[num - 1] = obj;
+
+                if (this.validatePhotoPost(photoPost)) {
+                    if (num > 0 && num <= photoPosts.length) {
+                        var num = parseInt(id);
+                        var obj = photoPosts[num - 1];
+                        if ('hashTags' in photoPost) {
+                            obj.hashTags = photoPost.hashTags;
+                        }
+                        if ('photoLink' in photoPost) {
+                            obj.photoLink = photoPost.photoLink;
+                        }
+                        if ('description' in photoPost) {
+                            obj.description = photoPost.description;
+                        }
                         return true;
                     }
                     else
                         return false;
                 }
-                else {
-                    console.log("Нет элемента с таким id");
-                    return false;
-                }
-
             }
             else {
                 console.log("В функцию были переданы аргументы неподходящего типа");
@@ -419,20 +422,20 @@ console.log("");
 console.log("");
 console.log("Проверка validatePhotoPost:");
 console.log("modul.validatePhotoPost({id: '23',description: 'Nexus 10',createdAt: new Date('2019-03-08T21:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []})");
-console.log(modul.validatePhotoPost({id: '23',description: 'Nexus 10',createdAt: new Date('2019-03-08T21:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []}));
+console.log(modul.validatePhotoPost({ id: '23', description: 'Nexus 10', createdAt: new Date('2019-03-08T21:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] }));
 console.log("modul.validatePhotoPost({description: 'Nexus 10',createdAt: new Date('2019-03-08T21:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []})");
-console.log(modul.validatePhotoPost({description: 'Nexus 10',createdAt: new Date('2019-03-08T21:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []}));
+console.log(modul.validatePhotoPost({ description: 'Nexus 10', createdAt: new Date('2019-03-08T21:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] }));
 
 
 console.log("");
 console.log("");
 console.log("Проверка addPhotoPost:");
 console.log("modul.addPhotoPost({description: 'Nexus 10',createdAt: new Date('2019-03-08T22:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []})");
-console.log(modul.addPhotoPost({id:'23',description: 'Nexus 10',createdAt: new Date('2019-03-08T22:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []}));
+console.log(modul.addPhotoPost({ id: '23', description: 'Nexus 10', createdAt: new Date('2019-03-08T22:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] }));
 console.log("modul.getPhotoPosts(0, 21)");
 console.log(modul.getPhotoPosts(0, 21));
 console.log("modul.addPhotoPost({id:'18',description: 'Nexus 10',createdAt: new Date('2019-03-08T21:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []})");
-console.log(modul.addPhotoPost({id:'18',description: 'Nexus 10',createdAt: new Date('2019-03-08T22:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []}));
+console.log(modul.addPhotoPost({ id: '18', description: 'Nexus 10', createdAt: new Date('2019-03-08T22:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] }));
 
 
 console.log("");
@@ -441,7 +444,7 @@ console.log("Проверка editPhotoPost:");
 console.log('modul.getPhotoPost("10")');
 console.log(modul.getPhotoPost("10"));
 console.log("modul.editPhotoPost('10', { description:'Поменяли',photoLink: 'http://haradok.info/static/news/5/4565/preview.jpg' })");
-console.log(modul.editPhotoPost('10', { description:'Поменяли',photoLink: 'http://haradok.info/static/news/5/4565/preview.jpg' }));
+console.log(modul.editPhotoPost('10', { description: 'Поменяли', photoLink: 'http://haradok.info/static/news/5/4565/preview.jpg' }));
 console.log('modul.getPhotoPost("10")');
 console.log(modul.getPhotoPost("10"));
 
