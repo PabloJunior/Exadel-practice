@@ -1,0 +1,153 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Хранилище фотографий</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+
+<body>
+    
+    
+    <header>
+        <div>
+            <div class="container">
+                <img src="img/logo.jpg" alt="Хранилище" class="logo">
+                <img src="img/add.JPG" alt="Добавить фотопост" class="add">
+                <div class="nick">
+                    <img src="img/avatar.JPG" alt="Аватар" class="profile">
+                    <img src="img/exit.JPG" alt="Выход" class="Exit">
+                    <div class="user">Мистер Твистер</div>
+
+                </div>
+            </div>
+            <hr/>
+        </div>
+    </header>
+
+
+    <section>
+        <aside>
+            <div>
+                <div class="search">
+                    <div class="filters">Фильтр фотопостов:</div>
+                    <ui class="toolbar">
+                        <li><input type="search" placeholder="Введите имя" style=" font-size: 2vw"></li>
+                        <li><input type="search" placeholder="Введите дату" style=" font-size: 2vw"></li>
+                        <li><input list="hashtags" placeholder="Введите хэштэги" style=" font-size: 2vw">
+                            <datalist id="hashtags">
+                                <option value="#BSU"></option>
+                                <option value="#Minsk"></option>
+                                <option value="#Belarus"></option>
+                                <option value="#котэ"></option>
+                                <option value="#милота"></option>
+                                <option value="#cute"></option>
+                                <option value="#хоккей"></option>
+                                <option value="#БГУ"></option>
+                            </datalist></li>
+                        <li><img src="img/search.JPG" alt="Искать" class="searchbutton">
+                    </ui>
+                </div>
+            </div>
+        </aside>
+
+
+        <div class="post">
+            <div class="headPost">
+                <img src="img/icon.JPG" alt="" class="userphoto">
+                <div class="username">Мистер Твистер</div>
+                <div class="datapost"> 31 июня 2018 </div>
+            </div>
+            <div class="photo">
+                <img src="img/arena.jpg" background-size: cover; alt="Memories" style="max-width:100%;height:auto;">
+            </div>
+            <div class="elements">
+                <img src="img/like.jpg" class="like">
+                <img src="img/edit.JPG" class="setting">
+                <img src="img/Корзина.JPG" class="delete">
+                <div class="hashtags">
+                    #Minsk #Belarus #хоккей
+                </div>
+            </div>
+            <textarea name="text" cols="109" rows="4" disabled placeholder="Краткое описание фотопоста"
+                class="comment"></textarea>
+        </div>
+
+
+        <div class="post">
+            <div class="headPost">
+                <img src="img/icon.JPG" alt="" class="userphoto">
+                <div class="username">Мистер Твистер</div>
+                <div class="datapost">03 сентября 2018 </div>
+            </div>
+            <div class="photo">
+                <img src="img/BSU.jpg" alt="Memories" style="max-width:100%;height:auto;">
+            </div>
+            <div class="elements">
+                <img src="img/like.JPG" class="like">
+                <img src="img/edit.JPG" class="setting">
+                <img src="img/Корзина.JPG" class="delete">
+                <div class="hashtags">
+                    #BSU #Minsk #БГУ
+                </div>
+            </div>
+            <textarea name="text" cols="109" rows="4" disabled placeholder="Краткое описание фотопоста"
+                class="comment"></textarea>
+        </div>
+
+
+        <div class="post">
+            <div class="headPost">
+                <img src="img/icon.JPG" alt="" class="userphoto">
+                <div class="username">Кот Бегемот</div>
+                <div class="datapost">25 мая 2018</div>
+            </div>
+            <div class="photo">
+                <img src="img/cat.jpg" alt="Memories" style="max-width:100%;height:auto;">
+            </div>
+            <div class="elements">
+                <img src="img/like.jpg" class="like">
+                <div class="hashtags">
+                    #cute #милота #котэ
+                </div>
+            </div>
+            <textarea name="text" cols="109" rows="4" disabled placeholder="Краткое описание фотопоста"
+                class="comment"></textarea>
+        </div>
+    </section>
+
+
+    <section>
+        <img src="img/load.JPG" class="load">
+        <hr/>
+    </section>
+
+
+    <footer>
+        <div class="info">
+            <p><b>Хранилище фотографий</b></p>
+            <p style="margin-left:40px;"><i>photosanctuary.com</i></p>
+            <p style="margin-left:25px;">Последние изменения:</p>
+            <p style="margin-left:85px;"><time>01.03.2019</time>
+        </div>
+        <ul class="information">
+            <li><code>Об авторе</code></li>
+            <li style="background:url(img/photo.JPG) no-repeat; padding-left: 100px;">
+                <code><a href="https://vk.com/pablo.junior" class="" style="color: black; text-decoration: none ">Мусорский Павел<br>5 группа 2 курс</a></code>
+            </li>
+            <li id="left" style="background:url(img/email.JPG)  no-repeat; padding-left: 100px; ">
+                <code> pablo.junior@tut.by </code></li>
+            <li style="background:url(img/phone.JPG) no-repeat; padding-left: 100px; ">
+                <code>+375 (29) 337-86-37 </code></li>
+        </ul>
+    </footer>
+
+    <script src = "js/ES6class.js"></script>
+   
+
+</body>
+
+
+</html>

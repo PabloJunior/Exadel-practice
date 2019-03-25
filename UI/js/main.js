@@ -1,4 +1,3 @@
-
 var modul = (function () {
     var photoPosts = [
         {
@@ -266,51 +265,35 @@ var modul = (function () {
             }
         },
 
-
-        validatePhotoPost: function (photoPost) {
-            if (!photoPost) {
-                return false;
+         validatePhotoPost:function(photoPost) {
+            for(let i = 0; i < photoPosts.length; i++) {
+                if (photoPosts[i].id==photoPost.id)
+                    return false;
             }
-            if (!('likes' in photoPost && 'author' in photoPost && 'photoLink' in photoPost && 'createdAt' in photoPost && 'id' in photoPost && 'description' in photoPost && 'hashTags' in photoPost)) {
+            if (!photoPost.description || typeof photoPost.description !== 'string' || photoPost.description.length > 200)
                 return false;
-            }
-            if (!photoPost.id) {
+            if (!photoPost.createdAt || !(photoPost.createdAt instanceof Date))
                 return false;
-            }
-            if (!photoPost || photoPost.description.length > 200) {
+            if (!photoPost.author || typeof photoPost.author !== "string")
                 return false;
-            }
-            if (!(photoPost.createdAt instanceof Date) || photoPost.createdAt.toString() === "Invalid Date") {
+            if (photoPost.hashtags && photoPost.hashtags.some(this.notString))
                 return false;
-            }
-            if (!photoPost.author) {
+            if (photoPost.likes && photoPost.likes.some(this.notString))
                 return false;
-            }
-            if (!photoPost.photoLink) {
+            if (!photoPost.photoLink || typeof photoPost.photoLink !== "string")
                 return false;
-            }
-            if (photoPost.likes === null) {
-                return false;
-            }
-
             return true;
         },
-
-
-        addPhotoPost: function (photoPost) {
-            for (var i = 0; i < photoPosts.length; i++) {
-                if (photoPost.id === photoPosts[i].id) {
-                    console.log("Пост с таким id уже существует, измените id нового поста");
-                    return false;
-                }
-            }
-            if (this.validatePhotoPost(photoPost)) {
-                photoPost.id = ""+(photoPosts.length + 1);
-                photoPosts.push(photoPost);
-                return true;
-            }
-            else
+    
+        notString:function(s) {
+            typeof s !== "string";
+        },
+    
+         addPhotoPost:function(photoPost) {
+            if (!this.validatePhotoPost(photoPost))
                 return false;
+            photoPosts.push(photoPost);
+            return true;
         },
 
 
@@ -346,7 +329,6 @@ var modul = (function () {
                 return false;
             }
         },
-
 
         removePhotoPost: function (id) {
             if (typeof (id) === "string") {
@@ -384,79 +366,3 @@ var modul = (function () {
     }
 
 })();
-
-
-
-console.log("Приветствую.");
-console.log("Для проверки функций перед названием функции пишите 'modul.'.");
-console.log("К примеру, modul.getPhotoPost(\"12\").");
-
-
-console.log("");
-console.log("");
-console.log("Проверка getPhotoPosts:");
-console.log("modul.getPhotoPosts(0, 10)");
-console.log(modul.getPhotoPosts(0, 10));
-console.log("modul.getPhotoPosts(10, 10)");
-console.log(modul.getPhotoPosts(10, 10));
-console.log("modul.getPhotoPosts(0, 20, { author: 'Mas' })");
-console.log(modul.getPhotoPosts(0, 20, { author: 'Mas' }));
-
-
-console.log("");
-console.log("");
-console.log("Проверка getPhotoPost:");
-console.log("modul.getPhotoPost(10)");
-console.log(modul.getPhotoPost(10));
-console.log("modul.getPhotoPost(\"10\")");
-console.log(modul.getPhotoPost("10"));
-console.log("modul.getPhotoPost(\"-10\")");
-console.log(modul.getPhotoPost("-10"));
-console.log("modul.getPhotoPost(\"290\")");
-console.log(modul.getPhotoPost("290"));
-console.log("modul.getPhotoPost(\"asdsddsadssda\")");
-console.log(modul.getPhotoPost("asdsddsadssda"));
-
-
-console.log("");
-console.log("");
-console.log("Проверка validatePhotoPost:");
-console.log("modul.validatePhotoPost({id: '23',description: 'Nexus 10',createdAt: new Date('2019-03-08T21:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []})");
-console.log(modul.validatePhotoPost({ id: '23', description: 'Nexus 10', createdAt: new Date('2019-03-08T21:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] }));
-console.log("modul.validatePhotoPost({description: 'Nexus 10',createdAt: new Date('2019-03-08T21:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []})");
-console.log(modul.validatePhotoPost({ description: 'Nexus 10', createdAt: new Date('2019-03-08T21:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] }));
-
-
-console.log("");
-console.log("");
-console.log("Проверка addPhotoPost:");
-console.log("modul.addPhotoPost({description: 'Nexus 10',createdAt: new Date('2019-03-08T22:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []})");
-console.log(modul.addPhotoPost({ id: '23', description: 'Nexus 10', createdAt: new Date('2019-03-08T22:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] }));
-console.log("modul.getPhotoPosts(0, 21)");
-console.log(modul.getPhotoPosts(0, 21));
-console.log("modul.addPhotoPost({id:'18',description: 'Nexus 10',createdAt: new Date('2019-03-08T21:57:49'),author: 'KillerMask',photoLink: 'http://photoportal.by/photos/18',hashTags: [],likes: []})");
-console.log(modul.addPhotoPost({ id: '18', description: 'Nexus 10', createdAt: new Date('2019-03-08T22:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] }));
-
-
-console.log("");
-console.log("");
-console.log("Проверка editPhotoPost:");
-console.log('modul.getPhotoPost("10")');
-console.log(modul.getPhotoPost("10"));
-console.log("modul.editPhotoPost('10', { description:'Поменяли',photoLink: 'http://haradok.info/static/news/5/4565/preview.jpg' })");
-console.log(modul.editPhotoPost('10', { description: 'Поменяли', photoLink: 'http://haradok.info/static/news/5/4565/preview.jpg' }));
-console.log('modul.getPhotoPost("10")');
-console.log(modul.getPhotoPost("10"));
-
-
-console.log("");
-console.log("");
-console.log("Проверка removePhotoPost:");
-console.log('modul.getPhotoPost("10")');
-console.log(modul.getPhotoPost("10"));
-console.log('modul.removePhotoPost("10")');
-console.log(modul.removePhotoPost("10"));
-console.log('modul.getPhotoPost("10")');
-console.log(modul.getPhotoPost("10"));
-
-
