@@ -90,6 +90,19 @@ class PostList {
         return true;
     }
 
+    getAuthors() {
+        let array = [];
+        for (let i = 0; i < photoPosts.length; i++)
+                array.push(photoPosts[i].author);
+            return Array.from(new Set(array));
+    }
+
+    getHashTags() {
+        let array = [];
+        for (let i = 0; i < photoPosts.length; i++)
+                array.push(photoPosts[i].hashTags);
+            return Array.from(new Set(array));
+    }
 
     add(photoPost) {
         if (!PostList.validate(photoPost)) {
@@ -100,7 +113,7 @@ class PostList {
         return true;
     }
 
-    edit(id, photoPost) {
+ edit(id, photoPost) {
         if (!this.get(id)) {
             return false;
         }
@@ -187,7 +200,7 @@ const photoPosts = [
         createdAt: new Date('2019-03-08T21:32:43'),
         author: 'Мистер Твистер',
         photoLink: 'http://photoportal.by/photos/3',
-        hashTags: ['работа'],
+        hashTags: ['#работа'],
         likes: ["Бобр-Добр"]
     },
     {
@@ -214,7 +227,7 @@ const photoPosts = [
         createdAt: new Date('2019-03-08T21:45:13'),
         author: 'Кнаклз из Уганды',
         photoLink: 'http://photoportal.by/photos/6',
-        hashTags: ["#sonicX", "memes"],
+        hashTags: ["#sonicX", "#memes"],
         likes: ["?"]
     },
     {
@@ -223,7 +236,7 @@ const photoPosts = [
         createdAt: new Date('2019-03-08T21:46:50'),
         author: '?',
         photoLink: 'http://photoportal.by/photos/7',
-        hashTags: ["?"],
+        hashTags: ["#?"],
         likes: []
     },
     {
@@ -232,7 +245,7 @@ const photoPosts = [
         createdAt: new Date('2019-03-08T21:47:56'),
         author: 'Мистер Твистер',
         photoLink: 'http://photoportal.by/photos/8',
-        hashTags: ["programming"],
+        hashTags: ["#programming"],
         likes: ["?"]
     },
     {
@@ -241,7 +254,7 @@ const photoPosts = [
         createdAt: new Date('2019-03-08T21:48:23'),
         author: 'TaksedaMask',
         photoLink: 'http://photoportal.by/photos/9',
-        hashTags: ["SailorMoon", "anime"],
+        hashTags: ["#SailorMoon", "#anime"],
         likes: ['Кнаклз из Уганды']
     },
     {
@@ -277,7 +290,7 @@ const photoPosts = [
         createdAt: new Date('2019-03-08T21:52:24'),
         author: 'Пикачу',
         photoLink: 'http://photoportal.by/photos/13',
-        hashTags: ["#pokemon", "pikachu"],
+        hashTags: ["#pokemon","#pikachu"],
         likes: []
     },
     {
@@ -344,52 +357,3 @@ const photoPosts = [
         likes: []
     }
 ];
-
-
-console.log("Приветствую.");
-let test = new PostList(photoPosts);
-console.log("let test = new PostList(photoPosts);");
-console.log("");
-console.log("");
-console.log("test._posts");
-console.log(test._posts);
-console.log("");
-console.log("");
-console.log("test.getPage(0, 10)");
-console.log(test.getPage(0, 10));
-console.log("test.getPage(10, 10)");
-console.log(test.getPage(10, 10));
-console.log("test.getPage(0, 10, {author: 'Mas'})");
-console.log(test.getPage(0, 10, {author: 'Mas'}));
-console.log("");
-console.log("");
-console.log("test.get('10')");
-console.log(test.get("10"));
-console.log("test.get('ыыыыыыыыыыыыыыы')");
-console.log(test.get("ыыыыыыыыыыыыыыы"));
-console.log('test.get(10)');
-console.log(test.get(10));
-console.log("");
-console.log("");
-console.log("PostList.validate({ id: '23', description: 'Nexus 10', createdAt: new Date('2019-03-08T21:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] })");
-console.log(PostList.validate({ id: '23', description: 'Nexus 10', createdAt: new Date('2019-03-08T21:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] }));
-console.log("PostList.validate({ id: '', description: 'Nexus 10', createdAt: new Date('2019-03-08T21:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] })");
-console.log(PostList.validate({ id: '', description: 'Nexus 10', createdAt: new Date('2019-03-08T21:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] }));
-console.log("");
-console.log("");
-console.log("test.add({ id: '23', description: 'Nexus 10', createdAt: new Date('2019-03-08T21:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] })");
-console.log(test.add({ id: '23', description: 'Nexus 10', createdAt: new Date('2019-08-08T21:57:49'), author: 'KillerMask', photoLink: 'http://photoportal.by/photos/18', hashTags: [], likes: [] }));
-console.log("");
-console.log("");
-console.log("test.get('1')");
-console.log(test.get("1"));
-console.log("test.edit('1', { photoLink: 'http://haradok.info/static/news/5/4565/preview.jpg,description:'Поменяли!'' })");
-console.log(test.edit('1', { photoLink: 'http://haradok.info/static/news/5/4565/preview.jpg', description: "Поменяли!" }));
-console.log("test.get('1')");
-console.log(test.get("1"));
-console.log("");
-console.log("");
-console.log("test.clear();");
-test.clear();
-console.log("test._posts");
-console.log(test._posts);

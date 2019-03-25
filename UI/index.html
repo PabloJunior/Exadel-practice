@@ -15,11 +15,11 @@
         <div>
             <div class="container">
                 <img src="img/logo.jpg" alt="Хранилище" class="logo">
-                <img src="img/add.JPG" alt="Добавить фотопост" class="add">
+                <img id='добавить' src="img/add.JPG" alt="Добавить фотопост" class="add">
                 <div class="nick">
-                    <img src="img/avatar.JPG" alt="Аватар" class="profile">
-                    <img src="img/exit.JPG" alt="Выход" class="Exit">
-                    <div class="user">Мистер Твистер</div>
+                    <img id='avatar' src="img/avatar.JPG" alt="Аватар" class="profile">
+                    <img id='exit' src="img/exit.JPG" alt="Выход" class="Exit">
+                    <div id='username' class="user"></div>
 
                 </div>
             </div>
@@ -28,94 +28,63 @@
     </header>
 
 
-    <section>
-        <aside>
-            <div>
-                <div class="search">
-                    <div class="filters">Фильтр фотопостов:</div>
-                    <ui class="toolbar">
-                        <li><input type="search" placeholder="Введите имя" style=" font-size: 2vw"></li>
-                        <li><input type="search" placeholder="Введите дату" style=" font-size: 2vw"></li>
-                        <li><input list="hashtags" placeholder="Введите хэштэги" style=" font-size: 2vw">
-                            <datalist id="hashtags">
-                                <option value="#BSU"></option>
-                                <option value="#Minsk"></option>
-                                <option value="#Belarus"></option>
-                                <option value="#котэ"></option>
-                                <option value="#милота"></option>
-                                <option value="#cute"></option>
-                                <option value="#хоккей"></option>
-                                <option value="#БГУ"></option>
-                            </datalist></li>
-                        <li><img src="img/search.JPG" alt="Искать" class="searchbutton">
-                    </ui>
-                </div>
-            </div>
-        </aside>
+    <section id='posts'>
+        
 
-
+<template id='temp'>
         <div class="post">
             <div class="headPost">
                 <img src="img/icon.JPG" alt="" class="userphoto">
-                <div class="username">Мистер Твистер</div>
-                <div class="datapost"> 31 июня 2018 </div>
+                <div id='user' class="username"></div>
+                <div id='date' class="datapost"></div>
             </div>
             <div class="photo">
-                <img src="img/arena.jpg" background-size: cover; alt="Memories" style="max-width:100%;height:auto;">
+                <img id='photo' src="" background-size: cover; alt="Memories" style="max-width:100%;height:auto;">
             </div>
             <div class="elements">
-                <img src="img/like.jpg" class="like">
-                <img src="img/edit.JPG" class="setting">
-                <img src="img/Корзина.JPG" class="delete">
-                <div class="hashtags">
-                    #Minsk #Belarus #хоккей
+                <img src="img/like.jpg" class="like"> 
+                <img id='edit'  src="img/edit.JPG" class="setting">
+                <img id='delete' src="img/Корзина.JPG" class="delete">              
+                <div id='hashtags' class="hashtags">                
                 </div>
             </div>
-            <textarea name="text" cols="109" rows="4" disabled placeholder="Краткое описание фотопоста"
+            <textarea id="description" name="text" cols="109" rows="4" disabled placeholder=""
                 class="comment"></textarea>
         </div>
+    </template> 
+
+  
+  
 
 
-        <div class="post">
-            <div class="headPost">
-                <img src="img/icon.JPG" alt="" class="userphoto">
-                <div class="username">Мистер Твистер</div>
-                <div class="datapost">03 сентября 2018 </div>
+    <aside>
+        <div>
+            <div class="search">
+                <div class="filters">Фильтр фотопостов:</div>
+                <ui class="toolbar">
+                   <li><p id="list">
+                    <input list="authors" placeholder="Введите автора" style=" font-size: 2vw">
+                    <datalist id="authors">
+                    </datalist>
+                </p></li>                         
+                    <li><input type="search" placeholder="Введите дату" style=" font-size: 2vw"></li>                                  
+                    <li><input list="hashtags" placeholder="Введите хэштэги" style=" font-size: 2vw">
+                        <datalist id="hashtags">
+                            <option value="#BSU"></option>
+                            <option value="#Minsk"></option>
+                            <option value="#Belarus"></option>
+                            <option value="#котэ"></option>
+                            <option value="#милота"></option>
+                            <option value="#cute"></option>
+                            <option value="#хоккей"></option>
+                            <option value="#БГУ"></option>
+                        </datalist></li>
+                    <li><img src="img/search.JPG" alt="Искать" class="searchbutton">
+                </ui>
             </div>
-            <div class="photo">
-                <img src="img/BSU.jpg" alt="Memories" style="max-width:100%;height:auto;">
-            </div>
-            <div class="elements">
-                <img src="img/like.JPG" class="like">
-                <img src="img/edit.JPG" class="setting">
-                <img src="img/Корзина.JPG" class="delete">
-                <div class="hashtags">
-                    #BSU #Minsk #БГУ
-                </div>
-            </div>
-            <textarea name="text" cols="109" rows="4" disabled placeholder="Краткое описание фотопоста"
-                class="comment"></textarea>
         </div>
+    </aside>
 
-
-        <div class="post">
-            <div class="headPost">
-                <img src="img/icon.JPG" alt="" class="userphoto">
-                <div class="username">Кот Бегемот</div>
-                <div class="datapost">25 мая 2018</div>
-            </div>
-            <div class="photo">
-                <img src="img/cat.jpg" alt="Memories" style="max-width:100%;height:auto;">
-            </div>
-            <div class="elements">
-                <img src="img/like.jpg" class="like">
-                <div class="hashtags">
-                    #cute #милота #котэ
-                </div>
-            </div>
-            <textarea name="text" cols="109" rows="4" disabled placeholder="Краткое описание фотопоста"
-                class="comment"></textarea>
-        </div>
     </section>
 
 
@@ -144,9 +113,9 @@
         </ul>
     </footer>
 
+    <script src = "js/ES6class.js"></script>
     <script src = "js/main.js"></script>
-
-
+    <script src = "js/DOM.js"></script>
 
 </body>
 
