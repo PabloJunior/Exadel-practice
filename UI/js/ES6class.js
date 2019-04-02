@@ -1,66 +1,73 @@
-
-
-class PostList {
+﻿class PostList {
     _posts;
+    _user;
 
-
-    constructor(postsList = []) {
+    constructor(postsList, user) {
         this._posts = postsList.slice();
-
+        this._user = user;
     }
-
 
     clear() {
         this._posts = [];
+        this._user = "";
     }
 
+    static _checkObject(post) {
+        return !!post;
+    }
 
-    addAll(posts) {
-        if (posts) {
-            var photos = this;
-            var error = [];
-            posts.forEach(function (item) {
-                if (!photos.add(item)) {
-                    error.push(item);
+    getPage(skip = 0, top = 10, filterConfig = {}) {
+        let foundPosts = this._posts.sort((post1, post2) => post1.creationDate - post2.creationDate);
+        if (filterConfig) {
+            if (Object.prototype.hasOwnProperty.call(filterConfig, 'author')) {
+                foundPosts = foundPosts.filter(post => post.author === filterConfig.author);
+            } else if (Object.prototype.hasOwnProperty.call(filterConfig, 'hashTags')) {
+                if (filterConfig.hashTags.length !== 0) {
+                    foundPosts = foundPosts.filter((post) => {
+                        for (let i = 0; i < filterConfig.hashTags.length; i++) {
+                            for (let j = 0; j < post.hashTags.length; j++) {
+                                if (post.hashTags[j] === filterConfig.hashTags[i]) {
+                                    return true;
+                                }
+                            }
+                        }
+                        return false;
+                    });
                 }
-            });
-            return error;
+            }
         }
-        return posts;
-    }
+        foundPosts = foundPosts.slice(skip, skip + top);
+        if (PostList._checkObject(foundPosts) && foundPosts.length !== 0) {
+            return foundPosts;
+        }
 
+        return null;
+    }
 
     get(id) {
         if (typeof id !== "string") {
-            console.log("В функцию были переданы аргументы неподходящего типа");
             return undefined;
         }
-        var num = Number.parseInt(id, 10);
-        var found = photoPosts.find(function (element) {
+        var found = this._posts.find(function (element) {
             return element.id === id;
         })
         if (!found) {
-            console.log("Нет элемента с таким id либо он был удален");
             return undefined;
         }
         return found;
     }
 
-
-    remove(id) {
+    removePost(id) {
         if (typeof id !== "string") {
-            console.log("В функцию были переданы аргументы неподходящего типа");
             return undefined;
         }
         if (!this.get(id)) {
-            console.log("Нет элемента с таким id");
             return false;
         }
-        const remIndex = photoPosts.indexOf(this.get(id));
-        photoPosts.splice(remIndex, 1);
+        const remIndex = this._posts.indexOf(this.get(id));
+        this._posts.splice(remIndex, 1);
         return true;
     }
-
 
     static validate(photoPost) {
         if (!photoPost) {
@@ -90,39 +97,50 @@ class PostList {
         return true;
     }
 
-    getAuthors() {
-        let array = [];
-        for (let i = 0; i < photoPosts.length; i++)
-                array.push(photoPosts[i].author);
-            return Array.from(new Set(array));
-    }
-
-    getHashTags() {
-        let array = [];
-        for (let i = 0; i < photoPosts.length; i++)
-                array.push(photoPosts[i].hashTags);
-            return Array.from(new Set(array));
-    }
-
-    add(photoPost) {
+    addPost(photoPost) {
         if (!PostList.validate(photoPost)) {
             return false;
         }
-        photoPost.id = "" + (photoPosts.length + 1);
-        photoPosts.push(photoPost);
+        this._posts.push(photoPost);
         return true;
     }
 
- edit(id, photoPost) {
+    addAll(posts) {
+        const error = [];
+        posts.forEach((post) => {
+            if (!PostList.validate(post)) error.push(post);
+        });
+        return error;
+    }
+
+    static isEmpty(someString) {
+        return !someString.trim();
+    }
+
+    static _checkString(someString) {
+        return typeof someString === 'string';
+    }
+
+    editPost(id, photoPost) {
         if (!this.get(id)) {
             return false;
         }
         let obj = this.get(id);
         if ('hashTags' in photoPost) {
-            obj.hashTags = photoPost.hashTags;
+            if (PostList._checkString(photoPost.hashTags)) {
+                let str = "";
+                for (let i = 0; i < photoPost.hashTags.length; i++) {
+                    str = str + photoPost.hashTags[i] + " ";
+                }
+                obj.hashTags = str;
+            }
+            else return false;
         }
         if ('photoLink' in photoPost) {
-            obj.photoLink = photoPost.photoLink;
+            if (!PostList.isEmpty(photoPost.photoLink))
+                obj.photoLink = photoPost.photoLink;
+            else
+                return false;
         }
         if ('description' in photoPost) {
             obj.description = photoPost.description;
@@ -135,225 +153,49 @@ class PostList {
     }
 
 
-
-
-    static _checkObject(post) {
-        return !!post;
-    }
-
-    getPage(skip = 0, top = 10, filterConfig = {}) {
-        let foundPosts = this._posts.sort((post1, post2) => post2.createdAt.getTime() - post1.createdAt.getTime());
-        if (filterConfig) {
-          if (Object.prototype.hasOwnProperty.call(filterConfig, 'author')) {
-            foundPosts = foundPosts.filter(post => post.author.includes(filterConfig.author));
-          } else if (Object.prototype.hasOwnProperty.call(filterConfig, 'hashTags')) {
-            if (filterConfig.hashTags.length !== 0) {
-              foundPosts = foundPosts.filter((post) => {
-                for (let i = 0; i < filterConfig.hashTags.length; i++) {
-                  for (let j = 0; j < post.hashTags.length; j++) {
-                    if (post.hashTags[j] === filterConfig.hashTags[i]) {
-                      return true;
-                    }
-                  }
-                }
-                return false;
-              });
-            }
-          }
-        }
-        foundPosts = foundPosts.slice(skip, skip + top);
-        if (PostList._checkObject(foundPosts) && foundPosts.length !== 0) {
-          return foundPosts;
-        }
-    
-        return null;
-      }
-    
-  
-
 }
 
 
 
-const photoPosts = [
+const PP = [
     {
         id: '1',
         description: 'Rocket launch',
-        createdAt: new Date('2019-03-08T21:30:00'),
+        createdAt: new Date('2018-02-26T10:42:43'),
         author: 'Mask',
-        photoLink: 'http://photoportal.by/photos/1',
+        photoLink: 'img/BSU.jpg',
         hashTags: ["#space", "#falcon"],
         likes: ["Бобр-Добр", 'SCP 096']
     },
     {
         id: '2',
         description: 'Моя плотина',
-        createdAt: new Date('2019-03-08T21:31:10'),
-        author: 'Бобр-Добр',
-        photoLink: 'http://photoportal.by/photos/2',
-        hashTags: ["#работа"],
+        createdAt: new Date('2018-03-26T09:42:43'),
+        author: 'Мистер Твистер',
+        photoLink: 'img/cat.jpg',
+        hashTags: ["#милота", "#котэ"],
         likes: ['Мистер Твистер']
     },
     {
         id: '3',
         description: 'Я стал первым министром',
-        createdAt: new Date('2019-03-08T21:32:43'),
-        author: 'Мистер Твистер',
-        photoLink: 'http://photoportal.by/photos/3',
-        hashTags: ['#работа'],
+        createdAt: new Date('2018-04-27T11:43:43'),
+        author: 'Takseda Mask',
+        photoLink: 'img/arena.jpg',
+        hashTags: ['#работа', '#повышение'],
         likes: ["Бобр-Добр"]
     },
     {
-        id: '4',
-        description: "Don't look at me!",
-        createdAt: new Date('2019-03-08T21:39:23'),
-        author: 'SCP 096',
-        photoLink: 'http://photoportal.by/photos/4',
-        hashTags: ["#SCP"],
-        likes: ['Кнаклз из Уганды']
-    },
-    {
-        id: '5',
-        description: 'Мне такое не нравится',
-        createdAt: new Date('2019-03-08T21:40:56'),
-        author: 'Mask',
-        photoLink: 'http://photoportal.by/photos/5',
-        hashTags: ["#ответ_русским"],
-        likes: ["Бобр-Добр"]
-    },
-    {
-        id: '6',
-        description: 'Do you know de way?',
-        createdAt: new Date('2019-03-08T21:45:13'),
-        author: 'Кнаклз из Уганды',
-        photoLink: 'http://photoportal.by/photos/6',
-        hashTags: ["#sonicX", "#memes"],
-        likes: ["?"]
-    },
-    {
-        id: '7',
-        description: '?',
-        createdAt: new Date('2019-03-08T21:46:50'),
-        author: '?',
-        photoLink: 'http://photoportal.by/photos/7',
-        hashTags: ["#?"],
-        likes: []
-    },
-    {
-        id: '8',
-        description: 'javascript',
-        createdAt: new Date('2019-03-08T21:47:56'),
-        author: 'Мистер Твистер',
-        photoLink: 'http://photoportal.by/photos/8',
-        hashTags: ["#programming"],
-        likes: ["?"]
-    },
-    {
-        id: '9',
-        description: 'Rose',
-        createdAt: new Date('2019-03-08T21:48:23'),
-        author: 'TaksedaMask',
-        photoLink: 'http://photoportal.by/photos/9',
-        hashTags: ["#SailorMoon", "#anime"],
-        likes: ['Кнаклз из Уганды']
-    },
-    {
-        id: '10',
-        description: '?',
-        createdAt: new Date('2019-03-08T21:49:44'),
-        author: '?',
-        photoLink: 'http://photoportal.by/photos/10',
-        hashTags: ['#?'],
-        likes: ['TaksedaMask']
-    },
-    {
-        id: '11',
-        description: 'black',
-        createdAt: new Date('2019-03-08T21:50:55'),
-        author: 'Alex',
-        photoLink: 'http://photoportal.by/photos/11',
-        hashTags: [],
-        likes: []
-    },
-    {
-        id: '12',
-        description: '?',
-        createdAt: new Date('2019-03-08T21:51:11'),
-        author: '?',
-        photoLink: 'http://photoportal.by/photos/12',
-        hashTags: ['#?'],
-        likes: []
-    },
-    {
-        id: '13',
-        description: 'Пика-пика-пика-чууу',
-        createdAt: new Date('2019-03-08T21:52:24'),
-        author: 'Пикачу',
-        photoLink: 'http://photoportal.by/photos/13',
-        hashTags: ["#pokemon","#pikachu"],
-        likes: []
-    },
-    {
-        id: '14',
-        description: 'I will get my revenge, Doctor!',
-        createdAt: new Date('2019-03-08T21:53:57'),
-        author: 'TheMaster',
-        photoLink: 'http://photoportal.by/photos/14',
-        hashTags: ["#DoctorWho"],
-        likes: []
-    },
-    {
-        id: '15',
-        description: '?',
-        createdAt: new Date('2019-03-08T21:54:12'),
-        author: '?',
-        photoLink: 'http://photoportal.by/photos/15',
-        hashTags: ['#?'],
-        likes: []
-    },
-    {
-        id: '16',
-        description: '?',
-        createdAt: new Date('2019-03-08T21:55:30'),
-        author: '?',
-        photoLink: 'http://photoportal.by/photos/16',
-        hashTags: [],
-        likes: []
-    },
-    {
-        id: '17',
-        description: 'New plan',
-        createdAt: new Date('2019-03-08T21:56:44'),
-        author: 'TheMaster',
-        photoLink: 'http://photoportal.by/photos/17',
-        hashTags: [],
-        likes: []
-    },
-    {
-        id: '18',
-        description: '?',
-        createdAt: new Date('2019-03-08T21:57:49'),
-        author: 'KillerMask',
-        photoLink: 'http://photoportal.by/photos/18',
-        hashTags: [],
-        likes: []
-    },
-    {
-        id: '19',
-        description: '?',
-        createdAt: new Date('2019-03-08T21:58:11'),
-        author: '?',
-        photoLink: 'http://photoportal.by/photos/19',
-        hashTags: ['#?'],
-        likes: []
-    },
-    {
-        id: '20',
-        description: '?',
-        createdAt: new Date('2019-03-08T21:59:00'),
-        author: '?',
-        photoLink: 'http://photoportal.by/photos/20',
-        hashTags: ['#?'],
-        likes: []
+        id: "4",
+        description: "Узнаёте?",
+        createdAt: new Date('2018-05-26T11:42:43'),
+        author: "?",
+        hashTags: ['#HarryPotter', '#HP'],
+        likes: [],
+        photoLink: 'img/HP.jpg'
     }
 ];
+
+
+
+let list = new PostList(PP, '');
