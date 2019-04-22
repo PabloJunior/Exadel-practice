@@ -1,16 +1,22 @@
 ﻿<!doctype html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <title>Хранилище фотографий</title>
     <link rel="stylesheet" href="css/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script defer src="js/ES6class.js"></script>
+    <script defer src="js/DOM.js"></script>
+    <script defer src="js/main.js"></script>
+    <script defer src="js/eventListeners.js"></script>
 </head>
 
 
 <body>
-    
-    
+
+
     <header>
         <div>
             <div class="container">
@@ -19,78 +25,50 @@
                 <div class="nick">
                     <img id='avatar' src="img/avatar.JPG" alt="Аватар" class="profile">
                     <img id='exit' src="img/exit.JPG" alt="Выход" class="Exit">
+                    <img id='reg' src="img/login.JPG" alt="Зарегистрироваться" class="Exit">
                     <div id='username' class="user"></div>
-
                 </div>
             </div>
-            <hr/>
+            <hr />
         </div>
     </header>
 
 
-    <section id='posts'>
-        
-
-<template id='temp'>
-        <div class="post">
-            <div class="headPost">
-                <img src="img/icon.JPG" alt="" class="userphoto">
-                <div id='user' class="username"></div>
-                <div id='date' class="datapost"></div>
-            </div>
-            <div class="photo">
-                <img id='photo' src="" background-size: cover; alt="Memories" style="max-width:100%;height:auto;">
-            </div>
-            <div class="elements">
-                <img src="img/like.jpg" class="like"> 
-                <img id='edit'  src="img/edit.JPG" class="setting">
-                <img id='delete' src="img/Корзина.JPG" class="delete">              
-                <div id='hashtags' class="hashtags">                
-                </div>
-            </div>
-            <textarea id="description" name="text" cols="109" rows="4" disabled placeholder=""
-                class="comment"></textarea>
-        </div>
-    </template> 
-
-  
-  
-
-
-    <aside>
+    <aside id='aside'>
         <div>
             <div class="search">
                 <div class="filters">Фильтр фотопостов:</div>
                 <ui class="toolbar">
-                   <li><p id="list">
-                    <input list="authors" placeholder="Введите автора" style=" font-size: 2vw">
-                    <datalist id="authors">
-                    </datalist>
-                </p></li>                         
-                    <li><input type="search" placeholder="Введите дату" style=" font-size: 2vw"></li>                                  
-                    <li><input list="hashtags" placeholder="Введите хэштэги" style=" font-size: 2vw">
+                    <li>
+                        <p id="list">
+                            <input list="authors" placeholder="Введите автора" style=" font-size: 2vw"
+                                id="authorFilter">
+                            <datalist id="authors">
+                            </datalist>
+                        </p>
+                    </li>
+                    <li> <input type=date placeholder="Введите дату" id="dateFilter" style=" font-size: 2.7vw"></li>
+                    <li>
+                        <input list="hashtags" placeholder="Введите хэштэги" id="hashTagFilter" style=" font-size: 2vw">
                         <datalist id="hashtags">
-                            <option value="#BSU"></option>
-                            <option value="#Minsk"></option>
-                            <option value="#Belarus"></option>
-                            <option value="#котэ"></option>
-                            <option value="#милота"></option>
-                            <option value="#cute"></option>
-                            <option value="#хоккей"></option>
-                            <option value="#БГУ"></option>
-                        </datalist></li>
-                    <li><img src="img/search.JPG" alt="Искать" class="searchbutton">
+                        </datalist>
+                    </li>
+                    <li>
+                        <img id='full' src="img/search.JPG" alt="Искать" class="searchbutton">
+                    </li>
                 </ui>
             </div>
         </div>
     </aside>
 
+
+    <section id='posts'>
+        <img id='notFound' src="img/nothing_found.png" alt="Ничего не найдено" style="display:none">
     </section>
 
-
     <section>
-        <img src="img/load.JPG" class="load">
-        <hr/>
+        <img id='loadMore' src="img/load.JPG" class="load">
+        <hr />
     </section>
 
 
@@ -113,11 +91,53 @@
         </ul>
     </footer>
 
-    <script src = "js/ES6class.js"></script>
-    <script src = "js/main.js"></script>
-    <script src = "js/DOM.js"></script>
+
+    <!--sign in window -->
+    <div id="signInModal" class="modal">
+        <div class="modalContent">
+            <div class="signLogo">
+                <img class="alignLogo" src="img/logo.JPG" />
+            </div>
+            <p id="signInPhrase">Войдите в систему, дабы использовать все функции сайта</p>
+            <p style="display: none; color:red; font-size:3vw" id="wrongData">Неверный логин или пароль! Попробуйте
+                снова</p>
+            <input type="text" placeholder="Введите логин" class="filterField" id="login">
+            <input type="password" placeholder="Введите пароль" class="filterField" id="password">
+            <button class="buttonStyle" id="signIN">Войти</button>
+        </div>
+    </div>
+
+
+    <!--delete post window -->
+    <div id="deleteModal" class="modal">
+        <div class="modalContent">
+            <p class="deleteWarning">Вы действительно хотите удалить этот пост?</p>
+            <button class="buttonStyle" id="yesDelete">ДА</button>
+            <button class="buttonStyle" id="noDelete">НЕТ</button>
+        </div>
+    </div>
+
+
+    <!--edit or add post window -->
+    <div id="editModal" class="modal">
+        <div class="modalContent">
+            <input type="url" name="pic" accept="image/*" placeholder="Image url" id="imageURL">
+            <button class="closeButton" id="upload">Загрузить фото</button>
+
+            <button class="closeButton" id="close">X</button>
+            <img id="photoModal" src="" width=80%>
+            <div id="descrModal">
+                <p id="nameModal"></p>
+                <p id="dateModal"></p>
+                <br>
+                <textarea id="shortDescrModal" class="descrArea" placeholder="Краткое описание"></textarea>
+                <textarea id="hashTagsModal" class="descrArea" placeholder="#"></textarea>
+            </div>
+            <button class="buttonStyle" id="okEdit">OK</button>
+        </div>
+    </div>
+
 
 </body>
-
 
 </html>
